@@ -4,113 +4,166 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Charity Organization</title>
+  
+  <!-- Bootstrap CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Three.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popcorn.js/1.5.11/popcorn.min.js"></script>
+  
   <style>
     body {
-      margin: 0;
-      overflow: hidden;
-      background-color: #f0f8ff;
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      color: #343a40;
     }
-    #threejs-canvas {
-      width: 100%;
-      height: 100vh;
+
+    /* Navbar Styling */
+    .navbar {
+      background-color: #007bff !important;
     }
-    .content {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
+    .navbar-brand, .nav-link {
+      color: #fff !important;
+    }
+    .nav-link:hover {
+      color: #cce5ff !important;
+    }
+
+    /* Hero Section */
+    .hero {
+      background-color: #007bff;
       color: white;
+      padding: 60px 20px;
+      text-align: center;
     }
-    .content h1 {
-      font-size: 3rem;
-      color: #007bff;
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: bold;
     }
-    .content p {
-      font-size: 1.5rem;
-      color: #007bff;
+    .hero p {
+      font-size: 1.25rem;
     }
+
+    /* Content Section */
     .container h2 {
       color: #007bff;
+      margin-top: 20px;
+    }
+
+    /* Three.js Canvas */
+    #threejs-canvas {
+      width: 100%;
+      height: 200px;
+      background-color: #e9ecef;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #343a40;
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      margin-top: 30px;
     }
   </style>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Charity</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Projects</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Contact</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
 
-  <div id="threejs-canvas"></div>
-
-  <div class="content">
-    <h1>Welcome to Our Charity</h1>
-    <p>We are dedicated to making the world a better place.</p>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg">
+  <a class="navbar-brand" href="#">Charity Name</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">News</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Our Team</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Legal</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Security</a>
+      </li>
+    </ul>
   </div>
+</nav>
 
-  <div class="container mt-5">
-    <h2>Our Mission</h2>
-    <p>Our mission is to provide support and resources to those in need, and to create a positive impact in our community.</p>
-    <h2>Get Involved</h2>
-    <p>Join us in our efforts to make a difference. Volunteer, donate, or participate in our events.</p>
-  </div>
+<!-- Hero Section -->
+<div class="hero">
+  <h1>Rebuilding Stronger and Safer</h1>
+  <p>After a recent cyber attack, we have improved security and resilience to keep your data safe.</p>
+</div>
 
-  <script>
-    // Three.js animation
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.getElementById('threejs-canvas').appendChild(renderer.domElement);
+<!-- Three.js Canvas -->
+<div id="threejs-canvas"></div>
 
-    const geometry = new THREE.BoxGeometry();
-    const material = new THREE.MeshBasicMaterial({ color: 0x007bff });
-    const cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
+<!-- Main Content -->
+<div class="container mt-5">
+  <h2>Welcome to Charity Name</h2>
+  <p>We are committed to helping those in need and making a positive impact in our community.</p>
 
-    camera.position.z = 5;
+  <h2>Latest News</h2>
+  <p><strong>New Secure Website Launched:</strong> Our new platform is designed to keep your data safe and provide a better experience.</p>
+  <p><strong>Fundraising Event Success:</strong> We raised over $5,000 for our cause. Thank you to everyone who supported us!</p>
 
-    function animate() {
-      requestAnimationFrame(animate);
-      cube.rotation.x += 0.01;
-      cube.rotation.y += 0.01;
-      renderer.render(scene, camera);
-    }
-    animate();
+  <h2>Our Security Measures</h2>
+  <ul>
+    <li>Regular updates to prevent vulnerabilities</li>
+    <li>Firewall protection to block unauthorized access</li>
+    <li>Encrypted backups to protect your data</li>
+    <li>Two-factor authentication for administrative accounts</li>
+  </ul>
+</div>
 
-    // Popcorn.js example
-    const pop = Popcorn("#video");
+<!-- Footer -->
+<footer>
+  © 2025 Charity Name. All rights reserved | <a href="#" class="text-white">Legal Information</a>
+</footer>
 
-    pop.footnote({
-      start: 2,
-      end: 6,
-      text: "Welcome to our charity!",
-      target: "footnote"
-    });
-  </script>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Three.js Animation -->
+<script>
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / 400, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer();
+
+  renderer.setSize(window.innerWidth, 200);
+  document.getElementById('threejs-canvas').appendChild(renderer.domElement);
+
+  const geometry = new THREE.SphereGeometry(1, 32, 32);
+  const material = new THREE.MeshBasicMaterial({ color: 0x007bff });
+  const sphere = new THREE.Mesh(geometry, material);
+  scene.add(sphere);
+
+  camera.position.z = 5;
+
+  function animate() {
+    requestAnimationFrame(animate);
+    sphere.rotation.x += 0.01;
+    sphere.rotation.y += 0.01;
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  // Resize canvas on window resize
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / 400;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, 200);
+  });
+</script>
+
+<!-- Bootstrap JS and Dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>
