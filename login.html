@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background: rgba(0, 0, 0, 0.5) url('https://media.istockphoto.com/id/1252584401/vector/heart-and-hands-painting.jpg?s=612x612&w=0&k=20&c=tcOGpdSUJkI_Uv9kcWVHnlzuiqrJZcufGRXrkgWO6_U=') no-repeat center center fixed;
+            background: rgba(0, 0, 0, 0.7) url('https://media.istockphoto.com/id/1252584401/vector/heart-and-hands-painting.jpg?s=612x612&w=0&k=20&c=tcOGpdSUJkI_Uv9kcWVHnlzuiqrJZcufGRXrkgWO6_U=') no-repeat center center fixed;
             background-size: cover;
             color: #fff;
             text-align: center;
@@ -21,11 +21,11 @@
         }
 
         .title {
-            font-size: 48px;
+            font-size: 64px;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 5px;
-            margin-bottom: 20px;
+            margin-bottom: 40px;
             background: linear-gradient(90deg, #fff, #feb47b);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -33,12 +33,12 @@
         }
 
         .form-container {
-            background-color: rgba(51, 51, 51, 0.9); /* Slightly transparent */
-            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.8); /* More transparent and darker */
+            padding: 30px;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
-            width: 300px;
-            margin-top: 50px;
+            width: 400px; /* Make the form container bigger */
+            margin-top: 20px;
             animation: fadeInScale 1s ease-in-out;
         }
 
@@ -73,6 +73,7 @@
             font-size: 16px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            margin-top: 10px; /* Add space between buttons */
         }
 
         .form-container button:hover {
@@ -121,8 +122,8 @@
             <input type="password" id="password" placeholder="Password" required>
             <button type="submit">Log In</button>
         </form>
-        <button onclick="showResetForm()">Forgot Password?</button>
-        <button onclick="showSignUpForm()">Sign Up</button>
+        <button onclick="showForm('resetFormContainer')">Forgot Password?</button>
+        <button onclick="showForm('signUpFormContainer')">Sign Up</button>
     </div>
 
     <div class="form-container" id="resetFormContainer" style="display: none;">
@@ -131,7 +132,7 @@
             <input type="text" id="resetUsername" placeholder="Username" required>
             <button type="submit">Reset Password</button>
         </form>
-        <button onclick="showLoginForm()">Back to Login</button>
+        <button onclick="showForm('loginFormContainer')">Back to Login</button>
     </div>
 
     <div class="form-container" id="signUpFormContainer" style="display: none;">
@@ -143,7 +144,7 @@
             <div class="password-strength" id="passwordStrength"></div>
             <button type="submit">Sign Up</button>
         </form>
-        <button onclick="showLoginForm()">Back to Login</button>
+        <button onclick="showForm('loginFormContainer')">Back to Login</button>
     </div>
 
     <div class="gdpr-alert" id="gdprAlert">
@@ -174,7 +175,7 @@
             } else {
                 failedAttempts++;
                 if (failedAttempts >= maxAttempts) {
-                    alert('Too many failed attempts. Please try again later.');
+                    alert('Too many failed attempts. Please try again in 30 seconds.');
                     disableLoginForm();
                     setTimeout(enableLoginForm, timeoutDuration);
                 } else {
@@ -203,7 +204,7 @@
             if (username && email && password) {
                 accounts[username] = password;
                 alert('Sign up successful for ' + username);
-                showLoginForm();
+                showForm('loginFormContainer');
             } else {
                 alert('Please fill in all fields.');
             }
@@ -211,8 +212,8 @@
 
         document.getElementById('signUpPassword').addEventListener('input', function() {
             const password = document.getElementById('signUpPassword').value;
-            const strength = checkPasswordStrength(password);
-            document.getElementById('passwordStrength').innerText = 'Password strength: ' + strength;
+            const strength = password ? checkPasswordStrength(password) : '';
+            document.getElementById('passwordStrength').innerText = password ? 'Password strength: ' + strength : '';
         });
 
         function checkPasswordStrength(password) {
@@ -226,34 +227,23 @@
             return strength;
         }
 
-        function showResetForm() {
-            document.getElementById('loginFormContainer').style.display = 'none';
-            document.getElementById('resetFormContainer').style.display = 'block';
-            document.getElementById('signUpFormContainer').style.display = 'none';
-        }
-
-        function showLoginForm() {
-            document.getElementById('loginFormContainer').style.display = 'block';
-            document.getElementById('resetFormContainer').style.display = 'none';
-            document.getElementById('signUpFormContainer').style.display = 'none';
-        }
-
-        function showSignUpForm() {
-            document.getElementById('loginFormContainer').style.display = 'none';
-            document.getElementById('resetFormContainer').style.display = 'none';
-            document.getElementById('signUpFormContainer').style.display = 'block';
+        function showForm(formId) {
+            const forms = ['loginFormContainer', 'resetFormContainer', 'signUpFormContainer'];
+            forms.forEach(id => {
+                document.getElementById(id).style.display = id === formId ? 'block' : 'none';
+            });
         }
 
         function disableLoginForm() {
             document.getElementById('username').disabled = true;
             document.getElementById('password').disabled = true;
-            document.querySelector('.form-container button[type="submit"]').disabled = true;
+            document.querySelector('#loginFormContainer button[type="submit"]').disabled = true;
         }
 
         function enableLoginForm() {
             document.getElementById('username').disabled = false;
             document.getElementById('password').disabled = false;
-            document.querySelector('.form-container button[type="submit"]').disabled = false;
+            document.querySelector('#loginFormContainer button[type="submit"]').disabled = false;
             failedAttempts = 0; // Reset failed attempts after timeout
         }
 
@@ -263,11 +253,19 @@
 
         function declineGDPR() {
             alert('You must accept cookies to use this site.');
+            document.getElementById('gdprAlert').style.display = 'block'; // Keep the alert visible
+            disableAllForms(); // Disable all forms if GDPR is declined
         }
 
-        window.onload = function() {
-            document.getElementById('gdprAlert').style.display = 'block';
+        function disableAllForms() {
+            document.getElementById('loginFormContainer').style.display = 'none';
+            document.getElementById('resetFormContainer').style.display = 'none';
+            document.getElementById('signUpFormContainer').style.display = 'none';
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('gdprAlert').style.display = 'block';
+        });
     </script>
 </body>
 </html>
