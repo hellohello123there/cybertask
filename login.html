@@ -34,13 +34,14 @@
         }
 
         .form-container {
-            background-color: rgba(0, 0, 0, 0.8); /* More transparent and darker */
+            background-color: rgba(255, 255, 255, 0.9); /* More transparent and lighter */
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
             width: 400px; /* Make the form container bigger */
             margin-top: 20px;
             animation: fadeInScale 1s ease-in-out;
+            color: #333; /* Dark text color */
         }
 
         @keyframes fadeInScale {
@@ -58,9 +59,9 @@
             width: 90%;
             padding: 10px;
             margin: 10px 0;
-            border: none;
+            border: 1px solid #ccc;
             border-radius: 5px;
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: #fff;
             color: #333;
         }
 
@@ -81,10 +82,21 @@
             background-color: #005f8a;
         }
 
+        .form-container .link {
+            display: block;
+            margin-top: 10px;
+            color: #0077b6;
+            text-decoration: none;
+        }
+
+        .form-container .link:hover {
+            text-decoration: underline;
+        }
+
         .password-strength {
             text-align: left;
             font-size: 12px;
-            color: #fff;
+            color: #333;
         }
 
         .gdpr-alert {
@@ -117,14 +129,13 @@
     <div class="title">The Giving Circle</div>
 
     <div class="form-container" id="loginFormContainer">
-        <h2>Login</h2>
+        <h2>Log in</h2>
         <form id="loginForm">
-            <input type="text" id="username" placeholder="Username" required>
+            <input type="text" id="username" placeholder="Email or username" required>
             <input type="password" id="password" placeholder="Password" required>
-            <button type="submit">Log In</button>
+            <a href="#" class="link" onclick="showForm('resetFormContainer')">Forgot password?</a>
+            <button type="submit">Log in</button>
         </form>
-        <button onclick="showForm('resetFormContainer')">Forgot Password?</button>
-        <button onclick="showForm('signUpFormContainer')">Sign Up</button>
     </div>
 
     <div class="form-container" id="resetFormContainer" style="display: none;">
@@ -133,7 +144,7 @@
             <input type="text" id="resetUsername" placeholder="Username" required>
             <button type="submit">Reset Password</button>
         </form>
-        <button onclick="showForm('loginFormContainer')">Back to Login</button>
+        <button onclick="showForm('loginFormContainer')" style="background-color: transparent; color: #0077b6; border: 1px solid #0077b6;">Back to Login</button>
     </div>
 
     <div class="form-container" id="signUpFormContainer" style="display: none;">
@@ -145,7 +156,7 @@
             <div class="password-strength" id="passwordStrength"></div>
             <button type="submit">Sign Up</button>
         </form>
-        <button onclick="showForm('loginFormContainer')">Back to Login</button>
+        <button onclick="showForm('loginFormContainer')" style="background-color: transparent; color: #0077b6; border: 1px solid #0077b6;">Back to Login</button>
     </div>
 
     <div class="gdpr-alert" id="gdprAlert">
