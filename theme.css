@@ -1,0 +1,53 @@
+body {
+    font-family: 'Arial', sans-serif; /* Adjust font family as needed */
+    background: url('') no-repeat center center fixed; /* Add your background image */
+    background-size: cover; /* Ensure the background image covers the entire page */
+    color: #fff; /* Adjust text color to white */
+    text-align: center;
+    padding: 50px;
+    margin: 0; /* Remove default margin */
+    height: 100vh; /* Ensure the body takes up the full height of the viewport */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    font-size: 48px; /* Adjust size as needed */
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    margin-bottom: 20px;
+}
+
+.subtitle {
+    font-size: 24px; /* Adjust size as needed */
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 40px;
+}
+
+.description {
+    font-size: 18px; /* Adjust size as needed */
+    margin-bottom: 40px;
+}
+
+.cta {
+    font-size: 20px; /* Adjust size as needed */
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #fff; /* Adjust color to white */
+    text-decoration: none;
+    border: 2px solid #fff; /* Adjust border color to white */
+    padding: 10px 20px;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.cta:hover {
+    background-color: #fff;
+    color: #0077b6; /* Adjust hover text color */
+}
