@@ -6,14 +6,14 @@
     <title>The Giving Society</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif; /* Adjust font family as needed */
-            background: url('https://media.istockphoto.com/id/1436319269/vector/group-of-diverse-people-with-arms-and-hands-raised-towards-a-hand-painted-heart-charity.jpg?s=612x612&w=0&k=20&c=gZdRZiNly1HoX4k0Qa8LnlTOD6fjjHSm_haq7pizYD4=') no-repeat center center fixed; /* Corrected background URL */
+            font-family: 'Arial', sans-serif;
+            background: rgba(0, 0, 0, 0.5) url('https://media.istockphoto.com/id/1436319269/vector/group-of-diverse-people-with-arms-and-hands-raised-towards-a-hand-painted-heart-charity.jpg?s=612x612&w=0&k=20&c=gZdRZiNly1HoX4k0Qa8LnlTOD6fjjHSm_haq7pizYD4=') no-repeat center center fixed;
             background-size: cover;
-            color: #fff; /* Adjust text color to white */
+            color: #fff;
             text-align: center;
             padding: 50px;
-            margin: 0; /* Remove default margin */
-            height: 100vh; /* Ensure the body takes up the full height of the viewport */
+            margin: 0;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -21,20 +21,36 @@
         }
 
         .title {
-            font-size: 48px; /* Adjust size as needed */
+            font-size: 48px;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 5px;
             margin-bottom: 20px;
+            background: linear-gradient(90deg, #ff7e5f, #feb47b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .login-form {
-            background-color: #333; /* Dark background for the form */
+            background-color: rgba(51, 51, 51, 0.9); /* Slightly transparent */
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
             width: 300px;
             margin-top: 50px;
+            animation: fadeInScale 1s ease-in-out;
+        }
+
+        @keyframes fadeInScale {
+            0% {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .login-form input {
@@ -43,6 +59,8 @@
             margin: 10px 0;
             border: none;
             border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #333;
         }
 
         .login-form button {
@@ -54,6 +72,7 @@
             border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
         .login-form button:hover {
@@ -62,12 +81,13 @@
 
         .reset-form {
             display: none;
-            background-color: #333; /* Dark background for the form */
+            background-color: rgba(51, 51, 51, 0.9); /* Slightly transparent */
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
             width: 300px;
             margin-top: 50px;
+            animation: fadeInScale 1s ease-in-out;
         }
 
         .reset-form input {
@@ -76,6 +96,8 @@
             margin: 10px 0;
             border: none;
             border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #333;
         }
 
         .reset-form button {
@@ -87,6 +109,7 @@
             border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
         .reset-form button:hover {
