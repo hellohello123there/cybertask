@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background: rgba(0, 0, 0, 0.5) url('https://media.istockphoto.com/id/1436319269/vector/group-of-diverse-people-with-arms-and-hands-raised-towards-a-hand-painted-heart-charity.jpg?s=612x612&w=0&k=20&c=gZdRZiNly1HoX4k0Qa8LnlTOD6fjjHSm_haq7pizYD4=') no-repeat center center fixed;
+            background: rgba(0, 0, 0, 0.5) url('https://bold-org.ghost.io/content/images/2024/06/virtual-fundraiser.jpg') no-repeat center center fixed;
             background-size: cover;
             color: #fff;
             text-align: center;
@@ -26,13 +26,13 @@
             text-transform: uppercase;
             letter-spacing: 5px;
             margin-bottom: 20px;
-            background: linear-gradient(90deg, #ff7e5f, #feb47b);
+            background: linear-gradient(90deg, #fff, #feb47b);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
-        .login-form {
+        .form-container {
             background-color: rgba(51, 51, 51, 0.9); /* Slightly transparent */
             padding: 20px;
             border-radius: 10px;
@@ -53,7 +53,7 @@
             }
         }
 
-        .login-form input {
+        .form-container input {
             width: 90%;
             padding: 10px;
             margin: 10px 0;
@@ -63,7 +63,7 @@
             color: #333;
         }
 
-        .login-form button {
+        .form-container button {
             width: 100%;
             padding: 10px;
             background-color: #0077b6;
@@ -75,44 +75,38 @@
             transition: background-color 0.3s ease;
         }
 
-        .login-form button:hover {
+        .form-container button:hover {
             background-color: #005f8a;
         }
 
-        .reset-form {
-            display: none;
-            background-color: rgba(51, 51, 51, 0.9); /* Slightly transparent */
+        .password-strength {
+            text-align: left;
+            font-size: 12px;
+            color: #fff;
+        }
+
+        .gdpr-alert {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
-            width: 300px;
-            margin-top: 50px;
-            animation: fadeInScale 1s ease-in-out;
+            text-align: center;
+            display: none;
         }
 
-        .reset-form input {
-            width: 90%;
-            padding: 10px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 5px;
-            background-color: rgba(255, 255, 255, 0.9);
-            color: #333;
-        }
-
-        .reset-form button {
-            width: 100%;
-            padding: 10px;
+        .gdpr-alert button {
             background-color: #0077b6;
             color: #fff;
             border: none;
-            border-radius: 5px;
-            font-size: 16px;
+            padding: 10px 20px;
+            margin: 10px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
         }
 
-        .reset-form button:hover {
+        .gdpr-alert button:hover {
             background-color: #005f8a;
         }
     </style>
@@ -120,7 +114,7 @@
 <body>
     <div class="title">The Giving Circle</div>
 
-    <div class="login-form">
+    <div class="form-container" id="loginFormContainer">
         <h2>Login</h2>
         <form id="loginForm">
             <input type="text" id="username" placeholder="Username" required>
@@ -128,15 +122,34 @@
             <button type="submit">Log In</button>
         </form>
         <button onclick="showResetForm()">Forgot Password?</button>
+        <button onclick="showSignUpForm()">Sign Up</button>
     </div>
 
-    <div class="reset-form" id="resetForm">
+    <div class="form-container" id="resetFormContainer" style="display: none;">
         <h2>Reset Password</h2>
         <form id="resetPasswordForm">
             <input type="text" id="resetUsername" placeholder="Username" required>
             <button type="submit">Reset Password</button>
         </form>
         <button onclick="showLoginForm()">Back to Login</button>
+    </div>
+
+    <div class="form-container" id="signUpFormContainer" style="display: none;">
+        <h2>Sign Up</h2>
+        <form id="signUpForm">
+            <input type="text" id="signUpUsername" placeholder="Username" required>
+            <input type="email" id="signUpEmail" placeholder="Email" required>
+            <input type="password" id="signUpPassword" placeholder="Password" required>
+            <div class="password-strength" id="passwordStrength"></div>
+            <button type="submit">Sign Up</button>
+        </form>
+        <button onclick="showLoginForm()">Back to Login</button>
+    </div>
+
+    <div class="gdpr-alert" id="gdprAlert">
+        <p>We use cookies to ensure you get the best experience on our website. By continuing to use our site, you accept our use of cookies and our privacy policy.</p>
+        <button onclick="acceptGDPR()">Accept</button>
+        <button onclick="declineGDPR()">Decline</button>
     </div>
 
     <script>
@@ -146,6 +159,10 @@
             admin: 'password'
         };
 
+        let failedAttempts = 0;
+        const maxAttempts = 3;
+        const timeoutDuration = 30000; // 30 seconds
+
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent the form from submitting the traditional way
             const username = document.getElementById('username').value;
@@ -153,8 +170,16 @@
 
             if (accounts[username] && accounts[username] === password) {
                 alert('Login successful for ' + username);
+                failedAttempts = 0; // Reset failed attempts on successful login
             } else {
-                alert('Failed login attempt. Incorrect username or password.');
+                failedAttempts++;
+                if (failedAttempts >= maxAttempts) {
+                    alert('Too many failed attempts. Please try again later.');
+                    disableLoginForm();
+                    setTimeout(enableLoginForm, timeoutDuration);
+                } else {
+                    alert('Failed login attempt. Incorrect username or password.');
+                }
             }
         });
 
@@ -169,14 +194,79 @@
             }
         });
 
+        document.getElementById('signUpForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting the traditional way
+            const username = document.getElementById('signUpUsername').value;
+            const email = document.getElementById('signUpEmail').value;
+            const password = document.getElementById('signUpPassword').value;
+
+            if (username && email && password) {
+                accounts[username] = password;
+                alert('Sign up successful for ' + username);
+                showLoginForm();
+            } else {
+                alert('Please fill in all fields.');
+            }
+        });
+
+        document.getElementById('signUpPassword').addEventListener('input', function() {
+            const password = document.getElementById('signUpPassword').value;
+            const strength = checkPasswordStrength(password);
+            document.getElementById('passwordStrength').innerText = 'Password strength: ' + strength;
+        });
+
+        function checkPasswordStrength(password) {
+            let strength = 'Weak';
+            if (password.length >= 8) {
+                strength = 'Medium';
+            }
+            if (password.length >= 12 && /[A-Z]/.test(password) && /[0-9]/.test(password) && /[!@#$%^&*]/.test(password)) {
+                strength = 'Strong';
+            }
+            return strength;
+        }
+
         function showResetForm() {
-            document.querySelector('.login-form').style.display = 'none';
-            document.getElementById('resetForm').style.display = 'block';
+            document.getElementById('loginFormContainer').style.display = 'none';
+            document.getElementById('resetFormContainer').style.display = 'block';
+            document.getElementById('signUpFormContainer').style.display = 'none';
         }
 
         function showLoginForm() {
-            document.getElementById('resetForm').style.display = 'none';
-            document.querySelector('.login-form').style.display = 'block';
+            document.getElementById('loginFormContainer').style.display = 'block';
+            document.getElementById('resetFormContainer').style.display = 'none';
+            document.getElementById('signUpFormContainer').style.display = 'none';
+        }
+
+        function showSignUpForm() {
+            document.getElementById('loginFormContainer').style.display = 'none';
+            document.getElementById('resetFormContainer').style.display = 'none';
+            document.getElementById('signUpFormContainer').style.display = 'block';
+        }
+
+        function disableLoginForm() {
+            document.getElementById('username').disabled = true;
+            document.getElementById('password').disabled = true;
+            document.querySelector('.form-container button[type="submit"]').disabled = true;
+        }
+
+        function enableLoginForm() {
+            document.getElementById('username').disabled = false;
+            document.getElementById('password').disabled = false;
+            document.querySelector('.form-container button[type="submit"]').disabled = false;
+            failedAttempts = 0; // Reset failed attempts after timeout
+        }
+
+        function acceptGDPR() {
+            document.getElementById('gdprAlert').style.display = 'none';
+        }
+
+        function declineGDPR() {
+            alert('You must accept cookies to use this site.');
+        }
+
+        window.onload = function() {
+            document.getElementById('gdprAlert').style.display = 'block';
         }
     </script>
 </body>
