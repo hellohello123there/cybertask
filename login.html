@@ -130,12 +130,16 @@
 
     <div class="form-container" id="loginFormContainer">
         <h2>Log in</h2>
+        <button style="background-color: #4285F4; color: #fff; border: none; padding: 10px; border-radius: 5px; width: 100%; margin-bottom: 10px;">Log in via Google</button>
+        <p style="margin: 10px 0;">or</p>
         <form id="loginForm">
             <input type="text" id="username" placeholder="Email or username" required>
             <input type="password" id="password" placeholder="Password" required>
             <a href="#" class="link" onclick="showForm('resetFormContainer')">Forgot password?</a>
             <button type="submit">Log in</button>
         </form>
+        <p style="margin-top: 20px;">No account?</p>
+        <button onclick="showForm('signUpFormContainer')" style="background-color: transparent; color: #0077b6; border: 1px solid #0077b6;">Create account</button>
     </div>
 
     <div class="form-container" id="resetFormContainer" style="display: none;">
