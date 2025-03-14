@@ -5,12 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Giving Society</title>
     <style>
-        body 
-        
-        {
+        body {
             font-family: 'Arial', sans-serif;
-            background: rgba(0, 0, 0, 0.7) url('https://media.istockphoto.com/id/1252584401/vector/heart-and-hands-painting.jpg?s=612x612&w=0&k=20&c=tcOGpdSUJkI_Uv9kcWVHnlzuiqrJZcufGRXrkgWO6_U=') no-repeat center center fixed;
-            background-size: cover;
+            background-color: #183b9b38;
             color: #fff;
             text-align: center;
             padding: 50px;
@@ -20,6 +17,44 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .circle {
+            position: absolute;
+            width: 800px; /* Enlarged circle */
+            height: 800px; /* Enlarged circle */
+            border: 10px solid #0051ff;
+            border-radius: 50%;
+            animation: rotate 10s linear infinite, fadeIn 2s ease-in-out;
+            z-index: 1;
+            opacity: 0.5;
+            
+            left: 20%;
+            transform: translate(-50%, -50%);
+        }
+
+        .flower {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            animation: rotate 5s linear infinite;
+        }
+
+        .flower-1 { top: -15px; left: 50%; transform: translateX(-50%); }
+        .flower-2 { top: 50%; left: -15px; transform: translateY(-50%); }
+        .flower-3 { top: 50%; right: -15px; transform: translateY(-50%); }
+        .flower-4 { bottom: -15px; left: 50%; transform: translateX(-50%); }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .title {
@@ -28,22 +63,24 @@
             text-transform: uppercase;
             letter-spacing: 5px;
             margin-bottom: 40px;
-            background: linear-gradient(90deg, #fff, #feb47b);
+            background: linear-gradient(90deg, #fff, #feb47b); /* Same as homepage title color */
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            
+            z-index: 2;
         }
 
         .form-container {
-            background-color: rgba(255, 255, 255, 0.9); /* More transparent and lighter */
+            background-color: rgba(255, 255, 255, 0.9);
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
-            width: 400px; /* Make the form container bigger */
+            width: 400px;
             margin-top: 20px;
             animation: fadeInScale 1s ease-in-out;
-            color: #333; /* Dark text color */
+            color: #333;
+            z-index: 2;
         }
 
         @keyframes fadeInScale {
@@ -77,7 +114,7 @@
             font-size: 16px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            margin-top: 10px; /* Add space between buttons */
+            margin-top: 10px;
         }
 
         .form-container button:hover {
@@ -111,6 +148,7 @@
             padding: 20px;
             text-align: center;
             display: none;
+            z-index: 3;
         }
 
         .gdpr-alert button {
@@ -125,9 +163,64 @@
         .gdpr-alert button:hover {
             background-color: #005f8a;
         }
+
+        nav {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            z-index: 2;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
+    <!-- Circle Animation -->
+    <div class="circle">
+        <!-- Floral SVG Elements -->
+        <svg class="flower flower-1" viewBox="0 0 100 100" fill="#ff69b4">
+            <path d="M50,10 C60,20 70,20 80,10 C90,20 90,30 80,40 C90,50 90,60 80,70 C90,80 90,90 80,100 C70,90 60,90 50,100 C40,90 30,90 20,100 C10,90 10,80 20,70 C10,60 10,50 20,40 C10,30 10,20 20,10 C30,20 40,20 50,10 Z"/>
+        </svg>
+        <svg class="flower flower-2" viewBox="0 0 100 100" fill="#ff69b4">
+            <path d="M50,10 C60,20 70,20 80,10 C90,20 90,30 80,40 C90,50 90,60 80,70 C90,80 90,90 80,100 C70,90 60,90 50,100 C40,90 30,90 20,100 C10,90 10,80 20,70 C10,60 10,50 20,40 C10,30 10,20 20,10 C30,20 40,20 50,10 Z"/>
+        </svg>
+        <svg class="flower flower-3" viewBox="0 0 100 100" fill="#ff69b4">
+            <path d="M50,10 C60,20 70,20 80,10 C90,20 90,30 80,40 C90,50 90,60 80,70 C90,80 90,90 80,100 C70,90 60,90 50,100 C40,90 30,90 20,100 C10,90 10,80 20,70 C10,60 10,50 20,40 C10,30 10,20 20,10 C30,20 40,20 50,10 Z"/>
+        </svg>
+        <svg class="flower flower-4" viewBox="0 0 100 100" fill="#ff69b4">
+            <path d="M50,10 C60,20 70,20 80,10 C90,20 90,30 80,40 C90,50 90,60 80,70 C90,80 90,90 80,100 C70,90 60,90 50,100 C40,90 30,90 20,100 C10,90 10,80 20,70 C10,60 10,50 20,40 C10,30 10,20 20,10 C30,20 40,20 50,10 Z"/>
+        </svg>
+    </div>
+
+    <!-- Navbar -->
+    <nav>
+        <ul>
+            <li><a href="http://192.168.11.227/index.html">Home</a></li>
+            <li><a href="http://192.168.11.227/login.html">Login</a></li>
+            <li><a href="http://192.168.11.227/legal.html">Legal</a></li>
+            <li><a href="http://192.168.11.227/stories.html">Stories</a></li>
+            <li><a href="http://192.168.11.227/about.html">About</a></li>
+        </ul>
+    </nav>
+
     <div class="title">The Giving Circle</div>
 
     <div class="form-container" id="loginFormContainer">
@@ -168,20 +261,6 @@
         <button onclick="acceptGDPR()">Accept</button>
         <button onclick="declineGDPR()">Decline</button>
     </div>
-    <body>
-        <nav style="position: absolute; top: 0; left: 0; width: 100%; background-color: rgba(0, 0, 0, 0.8); padding: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);">
-            <ul style="list-style: none; margin: 0; padding: 0; display: flex; gap: 20px; align-items: center;">
-                <li><a href="http://192.168.11.227/index.html" style="color: #fff; text-decoration: none; font-size: 16px;">Home</a></li>
-                <li><a href="http://192.168.11.227/login.html" style="color: #fff; text-decoration: none; font-size: 16px;">Login</a></li>
-                <li><a href="http://192.168.11.227/legal.html" style="color: #fff; text-decoration: none; font-size: 16px;">Legal</a></li>
-                <li><a href="http://192.168.11.227/stories.html" style="color: #fff; text-decoration: none; font-size: 16px;">Stories</a></li>
-                <li><a href="http://192.168.11.227/about.html" style="color: #fff; text-decoration: none; font-size: 16px;">About</a></li>
-            </ul>
-        </nav>
-        
-        
-        ...
-    </body>
 
     <script>
         const accounts = {
