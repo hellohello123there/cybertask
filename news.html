@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giving Circle</title>
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+  
+  <!-- Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f8f9fa;
+      color: #343a40;
+    }
+
+    /* Navbar Styling */
+    .navbar {
+      background-color: #008cff !important;
+      padding: 15px 0;
+    }
+    .navbar-brand, .nav-link {
+      color: #ffffff !important;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+    }
+    .nav-link {
+      margin-right: 20px;
+      transition: color 0.3s ease;
+    }
+    .nav-link:hover {
+      color: #ccfff4 !important;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: url('https://www.armstrongwatson.co.uk/sites/armstrongwatson.co.uk/files/styles/blog/adaptive-image/public/news-images/2023/charitable_giving.jpg?itok=xGPfBJMW') no-repeat center center;
+      background-size: cover;
+      color: white;
+      padding: 100px 20px;
+      text-align: center;
+      animation: fadeIn 2s ease-in-out;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: bold;
+      animation: slideIn 1.5s ease-in-out;
+    }
+    .hero p {
+      font-size: 1.5rem;
+      animation: slideIn 2s ease-in-out;
+    }
+
+    /* Content Section */
+    .container h2 {
+      color: #0051ff;
+      margin-top: 40px;
+      font-family: 'Montserrat', sans-serif;
+      animation: fadeIn 2s ease-in-out;
+    }
+    .container p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    /* Three.js Canvas */
+    #threejs-canvas {
+      width: 100%;
+      height: 200px;
+      background-color: #e9ecef;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #343a40;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 50px;
+      font-family: 'Montserrat', sans-serif;
+    }
+    footer a {
+      color: #ffffff;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    footer a:hover {
+      color: #ccfff4;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes slideIn {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg">
+  <a class="navbar-brand" href="#">Giving Circle</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Stories</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Log in</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Legal</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<div class="hero">
+  <h1>Rebuilding Stronger and Safer</h1>
+  <p>After a recent cyber attack, we have improved security and resilience to keep your data safe.</p>
+</div>
+
+<!-- Three.js Canvas -->
+<div id="threejs-canvas"></div>
+
+<!-- Main Content -->
+<div class="container mt-5">
+  <h2>Welcome to Giving Circle</h2>
+  <p>We are committed to helping those in need and making a positive impact in our community.</p>
+
+  <h2>Latest News</h2>
+  <p><strong>New Secure Website Launched:</strong> Our new platform is designed to keep your data safe and provide a better experience.</p>
+  <p><strong>Fundraising Event Success:</strong> We raised over $5,000 for our cause. Thank you to everyone who supported us!</p>
+
+  <h2>Our Security Measures</h2>
+  <ul>
+    <li>Regular updates to prevent vulnerabilities</li>
+    <li>Firewall protection to block unauthorized access</li>
+    <li>Encrypted backups to protect your data</li>
+    <li>Two-factor authentication for administrative accounts</li>
+  </ul>
+</div>
+
+<!-- Footer -->
+<footer>
+  © 2025 Giving Circle. All rights reserved | <a href="#">Legal Information</a>
+</footer>
+
+<!-- Three.js Animation -->
+<script>
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / 400, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer();
+
+  renderer.setSize(window.innerWidth, 200);
+  document.getElementById('threejs-canvas').appendChild(renderer.domElement);
+
+  const geometry = new THREE.SphereGeometry(1, 32, 32);
+  const material = new THREE.MeshBasicMaterial({ color: 0x007bff });
+  const sphere = new THREE.Mesh(geometry, material);
+  scene.add(sphere);
+
+  camera.position.z = 5;
+
+  function animate() {
+    requestAnimationFrame(animate);
+    sphere.rotation.x += 0.01;
+    sphere.rotation.y += 0.01;
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  // Resize canvas on window resize
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / 400;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, 200);
+  });
+</script>
+
+<!-- Bootstrap JS and Dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
