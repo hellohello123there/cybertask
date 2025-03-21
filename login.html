@@ -319,7 +319,8 @@
                 } else {
                     alert('Failed login attempt. Incorrect username or password.');
                 }
-                logAction({ username }, 'failed login attempt');
+                logAction({ username: username, role: 'unknown' }, 'failed login attempt');
+
             }
         });
 
@@ -461,6 +462,11 @@
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('gdprAlert').style.display = 'block';
         });
+
+        function disableAllForms() {
+    document.querySelectorAll("input, button").forEach(el => el.disabled = true);
+}
+
     </script>
 </body>
 </html>
