@@ -83,7 +83,18 @@
     </div>
 
     <script>
-        
+        // Check if the user is logged in
+        const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+
+        // If the user is not logged in and accessed the page via the navbar, show an alert and redirect to login.html
+        if (!isLoggedIn) {
+            alert('You must log in to access this page.');
+            window.location.href = 'login.html';
+        } else {
+            // If the user is logged in, clear the login state (optional, depending on your use case)
+            sessionStorage.removeItem('isLoggedIn');
+        }
+
         // User database
         const users = {
             admin: { role: 'admin', password: 'admin123', privileges: [] },
