@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Giving Society</title>
     <style>
+        /* Your existing CSS styles */
         body {
             font-family: 'Arial', sans-serif;
             background-color: #183b9b38;
@@ -23,8 +24,8 @@
 
         .circle {
             position: absolute;
-            width: 800px; /* Enlarged circle */
-            height: 800px; /* Enlarged circle */
+            width: 800px;
+            height: 800px;
             border: 10px solid #0051ff;
             border-radius: 50%;
             animation: rotate 10s linear infinite, fadeIn 2s ease-in-out;
@@ -63,11 +64,10 @@
             text-transform: uppercase;
             letter-spacing: 5px;
             margin-bottom: 40px;
-            background: linear-gradient(90deg, #252424, #1044f1); /* Same as homepage title color */
+            background: linear-gradient(90deg, #252424, #1044f1);
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            
             z-index: 2;
         }
 
@@ -84,14 +84,8 @@
         }
 
         @keyframes fadeInScale {
-            0% {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
         }
 
         .form-container input {
@@ -265,67 +259,30 @@
 
     <script>
         const accounts = {
-            staff: 'password',
-            customer: 'password',
-            admin: 'password'
+            admin: { password: 'admin123', role: 'admin', privileges: [] },
+            staff: { password: 'staff123', role: 'staff', privileges: [] },
+            customer: { password: 'customer123', role: 'customer', privileges: [] }
         };
 
         let failedAttempts = 0;
         const maxAttempts = 3;
         const timeoutDuration = 30000; // 30 seconds
 
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the form from submitting the traditional way
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+        // Log actions to localStorage
+        function logAction(user, action) {
+            const logEntry = `${new Date().toISOString()} - ${user.role} (${user.username}) performed ${action}.\n`;
+            const logs = localStorage.getItem('user_actions') || '';
+            localStorage.setItem('user_actions', logs + logEntry);
+        }
 
-            if (accounts[username] && accounts[username] === password) {
-                alert('Login successful for ' + username);
-                failedAttempts = 0; // Reset failed attempts on successful login
-            } else {
-                failedAttempts++;
-                if (failedAttempts >= maxAttempts) {
-                    alert('Too many failed attempts. Please try again in 30 seconds.');
-                    disableLoginForm();
-                    setTimeout(enableLoginForm, timeoutDuration);
-                } else {
-                    alert('Failed login attempt. Incorrect username or password.');
-                }
-            }
-        });
+        // Backup files to localStorage
+        function backupFile(filePath, content) {
+            const backupKey = `backup_${Date.now()}_${filePath}`;
+            localStorage.setItem(backupKey, content);
+            console.log(`Backup created: ${backupKey}`);
+        }
 
-        document.getElementById('resetPasswordForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the form from submitting the traditional way
-            const resetUsername = document.getElementById('resetUsername').value;
-
-            if (accounts[resetUsername]) {
-                alert('Password reset link has been sent to ' + resetUsername);
-            } else {
-                alert('Username not found.');
-            }
-        });
-
-        document.getElementById('signUpForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the form from submitting the traditional way
-            const username = document.getElementById('signUpUsername').value;
-            const email = document.getElementById('signUpEmail').value;
-            const password = document.getElementById('signUpPassword').value;
-
-            if (username && email && password) {
-                accounts[username] = password;
-                alert('Sign up successful for ' + username);
-                showForm('loginFormContainer');
-            } else {
-                alert('Please fill in all fields.');
-            }
-        });
-
-        document.getElementById('signUpPassword').addEventListener('input', function() {
-            const password = document.getElementById('signUpPassword').value;
-            const strength = password ? checkPasswordStrength(password) : '';
-            document.getElementById('passwordStrength').innerText = password ? 'Password strength: ' + strength : '';
-        });
-
+        // Password strength checker
         function checkPasswordStrength(password) {
             let strength = 'Weak';
             if (password.length >= 8) {
@@ -337,6 +294,68 @@
             return strength;
         }
 
+        // Login form submission
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (accounts[username] && accounts[username].password === password) {
+                alert('Login successful for ' + username);
+                failedAttempts = 0; // Reset failed attempts
+                logAction({ username, ...accounts[username] }, 'login');
+            } else {
+                failedAttempts++;
+                if (failedAttempts >= maxAttempts) {
+                    alert('Too many failed attempts. Please try again in 30 seconds.');
+                    disableLoginForm();
+                    setTimeout(enableLoginForm, timeoutDuration);
+                } else {
+                    alert('Failed login attempt. Incorrect username or password.');
+                }
+                logAction({ username }, 'failed login attempt');
+            }
+        });
+
+        // Reset password form submission
+        document.getElementById('resetPasswordForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const resetUsername = document.getElementById('resetUsername').value;
+
+            if (accounts[resetUsername]) {
+                alert('Password reset link has been sent to ' + resetUsername);
+                logAction({ username: resetUsername }, 'password reset requested');
+            } else {
+                alert('Username not found.');
+            }
+        });
+
+        // Sign-up form submission
+        document.getElementById('signUpForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('signUpUsername').value;
+            const email = document.getElementById('signUpEmail').value;
+            const password = document.getElementById('signUpPassword').value;
+
+            if (username && email && password) {
+                accounts[username] = { password, role: 'customer', privileges: [] };
+                alert("Login successful! Redirecting...");
+                window.location.href = "192.168.11.164/document.html";
+                showForm('loginFormContainer');
+                logAction({ username }, 'sign up');
+            } else {
+                alert('Please fill in all fields.');
+            }
+        });
+
+        // Password strength meter
+        document.getElementById('signUpPassword').addEventListener('input', function() {
+            const password = document.getElementById('signUpPassword').value;
+            const strength = password ? checkPasswordStrength(password) : '';
+            document.getElementById('passwordStrength').innerText = password ? 'Password strength: ' + strength : '';
+        });
+
+        // Show/hide forms
         function showForm(formId) {
             const forms = ['loginFormContainer', 'resetFormContainer', 'signUpFormContainer'];
             forms.forEach(id => {
@@ -344,27 +363,30 @@
             });
         }
 
+        // Disable login form after too many failed attempts
         function disableLoginForm() {
             document.getElementById('username').disabled = true;
             document.getElementById('password').disabled = true;
             document.querySelector('#loginFormContainer button[type="submit"]').disabled = true;
         }
 
+        // Enable login form after timeout
         function enableLoginForm() {
             document.getElementById('username').disabled = false;
             document.getElementById('password').disabled = false;
             document.querySelector('#loginFormContainer button[type="submit"]').disabled = false;
-            failedAttempts = 0; // Reset failed attempts after timeout
+            failedAttempts = 0; // Reset failed attempts
         }
 
+        // GDPR compliance
         function acceptGDPR() {
             document.getElementById('gdprAlert').style.display = 'none';
         }
 
         function declineGDPR() {
             alert('You must accept cookies to use this site.');
-            document.getElementById('gdprAlert').style.display = 'block'; // Keep the alert visible
-            disableAllForms(); // Disable all forms if GDPR is declined
+            document.getElementById('gdprAlert').style.display = 'block';
+            disableAllForms();
         }
 
         function disableAllForms() {
