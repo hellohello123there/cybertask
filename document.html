@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #0077b6;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #0077b6;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #005f8a;
+        }
+        #actions {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+        #downloadWarningModal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <h1>Document Management System</h1>
+    <form id="loginForm">
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+
+    <div id="actions">
+        <button onclick="createDocument()">Create Document</button>
+        <button onclick="editDocument()">Edit Document</button>
+        <button onclick="deleteDocument()">Delete Document</button>
+        <button onclick="showDownloadWarning()">Download File</button>
+        <button onclick="addPrivilege()">Add Privilege</button>
+        <button onclick="revokePrivilege()">Revoke Privilege</button>
+    </div>
+
+    <div id="downloadWarningModal">
+        <p>This file contains personal data. Are you sure you want to download it?</p>
+        <button onclick="proceedDownload()">Proceed</button>
+        <button onclick="cancelDownload()">Cancel</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    const username = sessionStorage.getItem("username");
+    const role = sessionStorage.getItem("role");
+
+    if (!username || !role) {
+        alert("You must log in first!");
+        window.location.href = "login.html"; // Redirect back to login if not authenticated
+        return;
+    }
+
+    alert(`Welcome ${username} (${role})`);
+
+    // Show actions based on role
+    document.getElementById("actions").style.display = "block";
+});
+
+        // User database
+        const users = {
+            admin: { role: 'admin', password: 'admin123', privileges: [] },
+            staff: { role: 'staff', password: 'staff123', privileges: [] },
+            customer: { role: 'customer', password: 'customer123', privileges: [] }
+        };
+
+        // Log file (simulated in localStorage)
+        function logAction(user, action) {
+            const logEntry = `${new Date().toISOString()} - ${user.role} (${user.username}) performed ${action}.\n`;
+            const logs = localStorage.getItem('user_actions') || '';
+            localStorage.setItem('user_actions', logs + logEntry);
+        }
+
+        // Backup files (simulated in localStorage)
+        function backupFile(filePath, content) {
+            const backupKey = `backup_${Date.now()}_${filePath}`;
+            localStorage.setItem(backupKey, content);
+            console.log(`Backup created: ${backupKey}`);
+        }
+
+        // Current logged-in user
+        let currentUser = null;
+
+        // Login form submission
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (users[username] && users[username].password === password) {
+                currentUser = { username, ...users[username] };
+                document.getElementById('actions').style.display = 'block';
+                alert('Login successful!');
+            } else {
+                alert('Login failed. Check your credentials.');
+            }
+        });
+
+        // Document actions
+        function createDocument() {
+            if (currentUser.role === 'admin' || currentUser.role === 'staff') {
+                logAction(currentUser, 'create document');
+                alert(`${currentUser.role} created a document.`);
+            } else {
+                alert('You do not have permission to create documents.');
+            }
+        }
+
+        function editDocument() {
+            if (currentUser.role === 'admin' || currentUser.role === 'staff') {
+                const filePath = prompt('Enter file path:');
+                const newContent = prompt('Enter new content:');
+                if (filePath && newContent) {
+                    backupFile(filePath, newContent);
+                    logAction(currentUser, `edit document: ${filePath}`);
+                    alert(`${currentUser.role} edited ${filePath}.`);
+                }
+            } else {
+                alert('You do not have permission to edit documents.');
+            }
+        }
+
+        function deleteDocument() {
+            if (currentUser.role === 'admin') {
+                const filePath = prompt('Enter file path:');
+                if (filePath) {
+                    backupFile(filePath, '');
+                    logAction(currentUser, `delete document: ${filePath}`);
+                    alert(`${currentUser.role} deleted ${filePath}.`);
+                }
+            } else {
+                alert('You do not have permission to delete documents.');
+            }
+        }
+
+        // Download warning
+        function showDownloadWarning() {
+            document.getElementById('downloadWarningModal').style.display = 'block';
+        }
+
+        function proceedDownload() {
+            alert('Downloading file...');
+            document.getElementById('downloadWarningModal').style.display = 'none';
+        }
+
+        function cancelDownload() {
+            document.getElementById('downloadWarningModal').style.display = 'none';
+        }
+
+        // Privilege management
+        function addPrivilege() {
+            if (currentUser.role === 'admin') {
+                const targetUser = prompt('Enter target username:');
+                const privilege = prompt('Enter privilege to add:');
+                if (users[targetUser]) {
+                    users[targetUser].privileges.push(privilege);
+                    logAction(currentUser, `add privilege: ${privilege} to ${targetUser}`);
+                    alert(`${privilege} added to ${targetUser}.`);
+                } else {
+                    alert('User not found.');
+                }
+            } else {
+                alert('You do not have permission to add privileges.');
+            }
+        }
+
+        function revokePrivilege() {
+            if (currentUser.role === 'admin') {
+                const targetUser = prompt('Enter target username:');
+                const privilege = prompt('Enter privilege to revoke:');
+                if (users[targetUser]) {
+                    users[targetUser].privileges = users[targetUser].privileges.filter(p => p !== privilege);
+                    logAction(currentUser, `revoke privilege: ${privilege} from ${targetUser}`);
+                    alert(`${privilege} revoked from ${targetUser}.`);
+                } else {
+                    alert('User not found.');
+                }
+            } else {
+                alert('You do not have permission to revoke privileges.');
+            }
+        }
+    </script>
+</body>
+</html>

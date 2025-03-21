@@ -339,7 +339,8 @@
 
             if (username && email && password) {
                 accounts[username] = { password, role: 'customer', privileges: [] };
-                alert('Sign up successful for ' + username);
+                alert("Login successful! Redirecting...");
+                window.location.href = "192.168.11.164/document.html";
                 showForm('loginFormContainer');
                 logAction({ username }, 'sign up');
             } else {
