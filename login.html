@@ -296,29 +296,32 @@
     
         // Login form submission
         document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-    
-            if (accounts[username] && accounts[username].password === password) {
-                alert('Login successful for ' + username);
-                failedAttempts = 0; // Reset failed attempts
-                logAction({ username, ...accounts[username] }, 'login');
-                
-                // Redirect to document.html after successful login
-                window.location.href = 'document.html'; // Add this line
-            } else {
-                failedAttempts++;
-                if (failedAttempts >= maxAttempts) {
-                    alert('Too many failed attempts. Please try again in 30 seconds.');
-                    disableLoginForm();
-                    setTimeout(enableLoginForm, timeoutDuration);
-                } else {
-                    alert('Failed login attempt. Incorrect username or password.');
-                }
-                logAction({ username }, 'failed login attempt');
-            }
-        });
+    event.preventDefault();
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    if (accounts[username] && accounts[username].password === password) {
+        alert('Login successful for ' + username);
+        failedAttempts = 0; // Reset failed attempts
+        logAction({ username, ...accounts[username] }, 'login');
+
+        // Set login state in sessionStorage
+        sessionStorage.setItem('isLoggedIn', 'true');
+
+        // Redirect to document.html after successful login
+        window.location.href = 'document.html';
+    } else {
+        failedAttempts++;
+        if (failedAttempts >= maxAttempts) {
+            alert('Too many failed attempts. Please try again in 30 seconds.');
+            disableLoginForm();
+            setTimeout(enableLoginForm, timeoutDuration);
+        } else {
+            alert('Failed login attempt. Incorrect username or password.');
+        }
+        logAction({ username }, 'failed login attempt');
+    }
+});
     
         // Reset password form submission
         document.getElementById('resetPasswordForm').addEventListener('submit', function(event) {
