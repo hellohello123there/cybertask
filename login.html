@@ -259,9 +259,9 @@
 
     <script>
         const accounts = {
-            admin: { password: 'admin123', role: 'admin', privileges: [], email: 'admin@example.com', phone: '1234567890' },
-            staff: { password: 'staff123', role: 'staff', privileges: [], email: 'staff@example.com', phone: '0987654321' },
-            customer: { password: 'customer123', role: 'customer', privileges: [], email: 'customer@example.com', phone: '5555555555' }
+            admin: { password: 'admin123', role: 'admin', privileges: [] },
+            staff: { password: 'staff123', role: 'staff', privileges: [] },
+            customer: { password: 'customer123', role: 'customer', privileges: [] }
         };
 
         let failedAttempts = 0;
@@ -301,20 +301,9 @@
             const password = document.getElementById('password').value;
 
             if (accounts[username] && accounts[username].password === password) {
-                const answer = prompt('What is your favourite color?');
-                if (answer === 'red') {
-                    alert('Login successful for ' + username);
-                    failedAttempts = 0; // Reset failed attempts
-                    logAction({ username, ...accounts[username] }, 'login');
-
-                    // Set login state in sessionStorage
-                    sessionStorage.setItem('isLoggedIn', 'true');
-
-                    // Redirect to document.html after successful login
-                    window.location.href = 'document.html';
-                } else {
-                    alert('Incorrect answer. Access denied.');
-                }
+                alert('Login successful for ' + username);
+                failedAttempts = 0; // Reset failed attempts
+                logAction({ username, ...accounts[username] }, 'login');
             } else {
                 failedAttempts++;
                 if (failedAttempts >= maxAttempts) {
@@ -324,7 +313,7 @@
                 } else {
                     alert('Failed login attempt. Incorrect username or password.');
                 }
-                logAction({ username: username, role: 'unknown' }, 'failed login attempt');
+                logAction({ username }, 'failed login attempt');
             }
         });
 
@@ -349,7 +338,7 @@
             const password = document.getElementById('signUpPassword').value;
 
             if (username && email && password) {
-                accounts[username] = { password, role: 'customer', privileges: [], email };
+                accounts[username] = { password, role: 'customer', privileges: [] };
                 alert('Sign up successful for ' + username);
                 showForm('loginFormContainer');
                 logAction({ username }, 'sign up');
@@ -405,35 +394,9 @@
             document.getElementById('signUpFormContainer').style.display = 'none';
         }
 
-        // Automatic/Semi-Automatic Registration
-        function autoRegister() {
-            const email = prompt('Enter your email for registration:');
-            if (email) {
-                const username = `user${Object.keys(accounts).length + 1}`;
-                const password = Math.random().toString(36).slice(-8); // Generate a random password
-                accounts[username] = { password, role: 'customer', privileges: [], email };
-                alert(`Registration successful! Username: ${username}, Password: ${password}`);
-            }
-        }
-
-        // Add buttons for registration and 2FA
-        document.body.innerHTML += `
-            <div style="text-align: center; margin-top: 20px;">
-                <button onclick="autoRegister()">Auto Register</button>
-                <button onclick="showForm('signUpFormContainer')">Manual Register</button>
-            </div>
-        `;
-
-        // Show GDPR popup on page load
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('gdprAlert').style.display = 'block';
         });
-
-        // Disable all forms if GDPR is declined
-        function disableAllForms() {
-            document.querySelectorAll("input, button").forEach(el => el.disabled = true);
-        }
     </script>
 </body>
-</html>
 </html>
