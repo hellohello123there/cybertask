@@ -43,6 +43,7 @@
             background: #fff;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
             border-radius: 10px;
+            text-align: center;
         }
 
         .navbar {
@@ -99,14 +100,13 @@
         }
         .story {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 20px;
             background: #e9ecef;
             padding: 25px;
             margin: 20px 0;
             border-left: 7px solid #008cff;
             box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
             border-radius: 8px;
         }
         .story h2 {
@@ -118,19 +118,19 @@
             color: #444;
             font-size: 1.2em;
             line-height: 1.6;
+            max-width: 80%;
         }
         .story img {
-            width: auto;
-            max-width: 500px;
-            height: auto;
-            margin: 15px 0;
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+            margin-bottom: 15px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }    
 
         .story-content {
             flex: 1;
-            
+
         }
         
         
