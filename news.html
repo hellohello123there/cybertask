@@ -27,8 +27,9 @@
       top: 0;
       z-index: 1000;
       display: flex;
-      justify-content: space-between;
+      justify-content: center; /* Center the navbar content */
       align-items: center;
+      box-sizing: border-box; /* Ensure padding is included in width */
     }
 
     .navbar-brand {
@@ -37,6 +38,7 @@
       font-weight: 700;
       font-size: 1.5rem;
       text-decoration: none;
+      margin-right: auto; /* Push brand to the left */
     }
 
     .navbar-nav {
@@ -44,10 +46,11 @@
       list-style: none;
       margin: 0;
       padding: 0;
+      gap: 20px; /* Add gap between nav items */
     }
 
     .nav-item {
-      margin-left: 30px;
+      margin-left: 0; /* Remove margin-left */
     }
 
     .nav-link {
@@ -183,5 +186,4 @@
   </div>
 
 </body>
-</html>
 </html>
