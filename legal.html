@@ -129,13 +129,17 @@
             transform: translateY(-3px);
         }
 
-        .news-item, .staff-member {
-            margin-bottom: 20px;
+        .contact-info ul {
+            list-style-type: none;
+            padding: 0;
         }
 
-        .news-item h3, .staff-member h3 {
+        .contact-info ul li {
+            margin-bottom: 10px;
+        }
+
+        .contact-info ul li strong {
             color: #007BFF;
-            font-size: 1.5rem;
         }
 
         img {
@@ -189,17 +193,20 @@
             </a>
         </section>
 
-        <section id="news">
-            <h2>Latest News</h2>
-            <div class="news-item">
-                <h3>New Secure Website Launched</h3>
-                <p>We are excited to announce the launch of our new secure website, designed to protect your data and provide a better user experience.</p>
+        <section id="contact">
+            <h2>Contact Us</h2>
+            <div class="contact-info">
+                <h3>Get in Touch</h3>
+                <p>
+                    If you have any questions, need further information, or would like to support our cause, please don't hesitate to reach out to us. We're here to help!
+                </p>
+                <ul>
+                    <li><strong>Email:</strong> <a href="mailto:info@thegivingcircle.org">info@thegivingcircle.org</a></li>
+                    <li><strong>Phone:</strong> +44 987634 3738</li>
+                    <li><strong>Address:</strong> 123 Charity Lane, Hope City, London w12 3ef</li>
+                </ul>
             </div>
-            <div class="news-item">
-                <h3>Fundraising Event Success</h3>
-                <p>Our recent fundraising event raised over £5,000! Thank you to everyone who supported us.</p>
-            </div>
-            <a href="http://192.168.11.164/stories.html" class="button">View All News</a>
+            <a href="mailto:info@thegivingcircle.org" class="button">Email Us</a>
         </section>
 
         <section id="security">
@@ -213,7 +220,7 @@
                 <li>Encrypted backups to prevent data loss.</li>
                 <li>Two-factor authentication (2FA) for all administrative accounts.</li>
             </ul>
-            <a href="news.html" class="button">Learn More About Security</a>
+            <a href="security.html" class="button">Learn More About Security</a>
         </section>
     </main>
 
