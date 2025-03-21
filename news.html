@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Debug Core</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+      background-color: #183b9b38;
+      color: #333;
+      overflow-x: hidden;
+    }
+
+    /* Navbar Styling */
+    .navbar {
+      background-color: #008cff;
+      padding: 20px 40px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar-brand {
+      color: #ffffff !important;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      text-decoration: none;
+    }
+
+    .navbar-nav {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-item {
+      margin-left: 20px;
+    }
+
+    .nav-link {
+      color: #ffffff !important;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link:hover {
+      color: #ccfff4 !important;
+    }
+
+    /* Header Section */
+    .header {
+      background: url('https://www.armstrongwatson.co.uk/sites/armstrongwatson.co.uk/files/styles/blog/adaptive-image/public/news-images/2023/charitable_giving.jpg?itok=xGPfBJMW') no-repeat center center;
+      background-size: cover;
+      color: white;
+      padding: 150px 20px;
+      text-align: center;
+      animation: fadeIn 2s ease-in-out;
+      position: relative;
+      z-index: 2;
+    }
+
+    .header h1 {
+      font-size: 4rem;
+      font-weight: bold;
+      animation: slideIn 1.5s ease-in-out;
+    }
+
+    .header p {
+      font-size: 1.5rem;
+      animation: slideIn 2s ease-in-out;
+    }
+
+    /* Content Section */
+    .content {
+      padding: 60px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .content h2 {
+      color: #0051ff;
+      margin-top: 40px;
+      font-family: 'Montserrat', sans-serif;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .content p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .content ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .content ul li {
+      background-color: #e9ecef;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a class="navbar-brand" href="http://192.168.11.227/index.html">The Giving Circle</a>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="http://192.168.11.227/index.html">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="http://192.168.11.227/stories.html">Stories</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="http://192.168.11.227/login.html">Log in</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="http://192.168.11.227/legal.html">Legal</a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Header Section -->
+  <div class="header">
+    <h1>Rebuilding Stronger and Safer</h1>
+    <p>After a second cyber attack, we have to prevent us over an explosion. In doing so our data scale.</p>
+  </div>
+
+  <!-- Content Section -->
+  <div class="content">
+    <h2>Welcome to The Giving Circle</h2>
+    <p>We can contact debug class near the runway to protect against our community.</p>
+
+    <h2>Latest News</h2>
+    <p>The Next theme launched of our new platforms designed to keep your data safe and positive.</p>
+
+    <h2>Our Security Measures</h2>
+    <ul>
+      <li>A basic approach to security analysis.</li>
+      <li>A key element in security analysis.</li>
+      <li>Avoided vulnerabilities by firefills or attacks.</li>
+    </ul>
+
+    <h2>What's New</h2>
+    <p>Discover the latest updates and improvements in our security protocols. We are constantly evolving to ensure your data remains safe and secure.</p>
+
+    <h2>Community Impact</h2>
+    <p>Our initiatives have helped numerous communities by providing robust security solutions and fostering a safer digital environment.</p>
+  </div>
+
+</body>
+</html>
+</html>
