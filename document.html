@@ -83,22 +83,7 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-    const username = sessionStorage.getItem("username");
-    const role = sessionStorage.getItem("role");
-
-    if (!username || !role) {
-        alert("You must log in first!");
-        window.location.href = "login.html"; // Redirect back to login if not authenticated
-        return;
-    }
-
-    alert(`Welcome ${username} (${role})`);
-
-    // Show actions based on role
-    document.getElementById("actions").style.display = "block";
-});
-
+        
         // User database
         const users = {
             admin: { role: 'admin', password: 'admin123', privileges: [] },
