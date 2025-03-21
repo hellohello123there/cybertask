@@ -121,6 +121,21 @@
       border-radius: 5px;
     }
 
+    /* Image Section */
+    .image-section {
+      text-align: center;
+      padding: 40px 20px;
+      background-color: #f9f9f9;
+    }
+
+    .image-section img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      animation: zoomIn 2s ease-in-out;
+    }
+
     /* Animations */
     @keyframes fadeIn {
       from { opacity: 0; }
@@ -130,6 +145,11 @@
     @keyframes slideIn {
       from { transform: translateY(20px); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
   </style>
 </head>
@@ -153,6 +173,9 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" href="http://192.168.11.164/contact.html">Contact Us</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="http://192.168.11.164/about.html">About Us</a>
       </li>
     </ul>
   </nav>
@@ -184,6 +207,9 @@
     <h2>Community Impact</h2>
     <p>Our initiatives have helped numerous communities by providing robust security solutions and fostering a safer digital environment.</p>
   </div>
+
+  
+  
 
 </body>
 </html>
