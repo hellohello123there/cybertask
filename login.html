@@ -259,29 +259,29 @@
 
     <script>
         const accounts = {
-            admin: { password: 'admin123', role: 'admin', privileges: [] },
-            staff: { password: 'staff123', role: 'staff', privileges: [] },
-            customer: { password: 'customer123', role: 'customer', privileges: [] }
+            admin: { password: 'admin123', role: 'admin', privileges: [], email: 'admin@example.com', phone: '1234567890' },
+            staff: { password: 'staff123', role: 'staff', privileges: [], email: 'staff@example.com', phone: '0987654321' },
+            customer: { password: 'customer123', role: 'customer', privileges: [], email: 'customer@example.com', phone: '5555555555' }
         };
-    
+
         let failedAttempts = 0;
         const maxAttempts = 3;
         const timeoutDuration = 30000; // 30 seconds
-    
+
         // Log actions to localStorage
         function logAction(user, action) {
             const logEntry = `${new Date().toISOString()} - ${user.role} (${user.username}) performed ${action}.\n`;
             const logs = localStorage.getItem('user_actions') || '';
             localStorage.setItem('user_actions', logs + logEntry);
         }
-    
+
         // Backup files to localStorage
         function backupFile(filePath, content) {
             const backupKey = `backup_${Date.now()}_${filePath}`;
             localStorage.setItem(backupKey, content);
             console.log(`Backup created: ${backupKey}`);
         }
-    
+
         // Password strength checker
         function checkPasswordStrength(password) {
             let strength = 'Weak';
@@ -293,41 +293,41 @@
             }
             return strength;
         }
-    
+
         // Login form submission
         document.getElementById('loginForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
 
-    if (accounts[username] && accounts[username].password === password) {
-        alert('Login successful for ' + username);
-        failedAttempts = 0; // Reset failed attempts
-        logAction({ username, ...accounts[username] }, 'login');
+            if (accounts[username] && accounts[username].password === password) {
+                alert('Login successful for ' + username);
+                failedAttempts = 0; // Reset failed attempts
+                logAction({ username, ...accounts[username] }, 'login');
 
-        // Set login state in sessionStorage
-        sessionStorage.setItem('isLoggedIn', 'true');
+                // Set login state in sessionStorage
+                sessionStorage.setItem('isLoggedIn', 'true');
 
-        // Redirect to document.html after successful login
-        window.location.href = 'document.html';
-    } else {
-        failedAttempts++;
-        if (failedAttempts >= maxAttempts) {
-            alert('Too many failed attempts. Please try again in 30 seconds.');
-            disableLoginForm();
-            setTimeout(enableLoginForm, timeoutDuration);
-        } else {
-            alert('Failed login attempt. Incorrect username or password.');
-        }
-        logAction({ username }, 'failed login attempt');
-    }
-});
-    
+                // Redirect to document.html after successful login
+                window.location.href = 'document.html';
+            } else {
+                failedAttempts++;
+                if (failedAttempts >= maxAttempts) {
+                    alert('Too many failed attempts. Please try again in 30 seconds.');
+                    disableLoginForm();
+                    setTimeout(enableLoginForm, timeoutDuration);
+                } else {
+                    alert('Failed login attempt. Incorrect username or password.');
+                }
+                logAction({ username }, 'failed login attempt');
+            }
+        });
+
         // Reset password form submission
         document.getElementById('resetPasswordForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const resetUsername = document.getElementById('resetUsername').value;
-    
+
             if (accounts[resetUsername]) {
                 alert('Password reset link has been sent to ' + resetUsername);
                 logAction({ username: resetUsername }, 'password reset requested');
@@ -335,16 +335,16 @@
                 alert('Username not found.');
             }
         });
-    
+
         // Sign-up form submission
         document.getElementById('signUpForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const username = document.getElementById('signUpUsername').value;
             const email = document.getElementById('signUpEmail').value;
             const password = document.getElementById('signUpPassword').value;
-    
+
             if (username && email && password) {
-                accounts[username] = { password, role: 'customer', privileges: [] };
+                accounts[username] = { password, role: 'customer', privileges: [], email };
                 alert('Sign up successful for ' + username);
                 showForm('loginFormContainer');
                 logAction({ username }, 'sign up');
@@ -352,14 +352,14 @@
                 alert('Please fill in all fields.');
             }
         });
-    
+
         // Password strength meter
         document.getElementById('signUpPassword').addEventListener('input', function() {
             const password = document.getElementById('signUpPassword').value;
             const strength = password ? checkPasswordStrength(password) : '';
             document.getElementById('passwordStrength').innerText = password ? 'Password strength: ' + strength : '';
         });
-    
+
         // Show/hide forms
         function showForm(formId) {
             const forms = ['loginFormContainer', 'resetFormContainer', 'signUpFormContainer'];
@@ -367,14 +367,14 @@
                 document.getElementById(id).style.display = id === formId ? 'block' : 'none';
             });
         }
-    
+
         // Disable login form after too many failed attempts
         function disableLoginForm() {
             document.getElementById('username').disabled = true;
             document.getElementById('password').disabled = true;
             document.querySelector('#loginFormContainer button[type="submit"]').disabled = true;
         }
-    
+
         // Enable login form after timeout
         function enableLoginForm() {
             document.getElementById('username').disabled = false;
@@ -382,25 +382,85 @@
             document.querySelector('#loginFormContainer button[type="submit"]').disabled = false;
             failedAttempts = 0; // Reset failed attempts
         }
-    
+
         // GDPR compliance
         function acceptGDPR() {
             document.getElementById('gdprAlert').style.display = 'none';
         }
-    
+
         function declineGDPR() {
             alert('You must accept cookies to use this site.');
             document.getElementById('gdprAlert').style.display = 'block';
             disableAllForms();
         }
-    
+
         function disableAllForms() {
             document.getElementById('loginFormContainer').style.display = 'none';
             document.getElementById('resetFormContainer').style.display = 'none';
             document.getElementById('signUpFormContainer').style.display = 'none';
         }
-    
+
+        // Automatic/Semi-Automatic Registration
+        function autoRegister() {
+            const email = prompt('Enter your email for registration:');
+            if (email) {
+                const username = `user${Object.keys(accounts).length + 1}`;
+                const password = Math.random().toString(36).slice(-8); // Generate a random password
+                accounts[username] = { password, role: 'customer', privileges: [], email };
+                alert(`Registration successful! Username: ${username}, Password: ${password}`);
+            }
+        }
+
+        // 2FA Options
+        function enable2FA() {
+            const option = prompt('Choose 2FA option:\n1. Email\n2. SMS\n3. Authenticator App');
+            switch (option) {
+                case '1':
+                    const emailCode = Math.floor(100000 + Math.random() * 900000); // Simulate email code
+                    alert(`A 6-digit code has been sent to your email: ${emailCode}`);
+                    const enteredEmailCode = prompt('Enter the 6-digit code:');
+                    if (enteredEmailCode == emailCode) {
+                        alert('2FA successful!');
+                    } else {
+                        alert('Invalid code. 2FA failed.');
+                    }
+                    break;
+                case '2':
+                    const smsCode = Math.floor(100000 + Math.random() * 900000); // Simulate SMS code
+                    alert(`A 6-digit code has been sent to your phone: ${smsCode}`);
+                    const enteredSMSCode = prompt('Enter the 6-digit code:');
+                    if (enteredSMSCode == smsCode) {
+                        alert('2FA successful!');
+                    } else {
+                        alert('Invalid code. 2FA failed.');
+                    }
+                    break;
+                case '3':
+                    const totpCode = Math.floor(100000 + Math.random() * 900000); // Simulate TOTP code
+                    alert(`Enter this code in your authenticator app: ${totpCode}`);
+                    const enteredTOTPCode = prompt('Enter the 6-digit code from your app:');
+                    if (enteredTOTPCode == totpCode) {
+                        alert('2FA successful!');
+                    } else {
+                        alert('Invalid code. 2FA failed.');
+                    }
+                    break;
+                default:
+                    alert('Invalid option.');
+            }
+        }
+
+        // Add buttons for registration and 2FA
+        document.body.innerHTML += `
+            <div style="text-align: center; margin-top: 20px;">
+                <button onclick="autoRegister()">Auto Register</button>
+                <button onclick="enable2FA()">Enable 2FA</button>
+            </div>
+        `;
+
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('gdprAlert').style.display = 'block';
         });
     </script>
+</body>
+</html>
