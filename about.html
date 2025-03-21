@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About Us - Giving Circle</title>
+  <title>About Us - Giving Grace</title>
   
   <!-- Bootstrap CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -11,142 +11,186 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f8f9fa;
+      background-color: #f9fafc;
       color: #343a40;
     }
 
-    .navbar {
+    /* Navbar Styling */
+    nav {
       background-color: #007bff;
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-    .navbar-brand, .nav-link {
-      color: white !important;
+    nav a {
+      color: white;
+      text-decoration: none;
       font-weight: 500;
+      padding: 5px 15px;
+      transition: color 0.3s ease;
+      font-size: 1rem;
+    }
+    nav a:hover {
+      color: #cce5ff;
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin-right: auto;
     }
 
+    /* Hero Section */
     .hero {
       background-color: #007bff;
       color: white;
-      padding: 60px 20px;
+      padding: 80px 20px;
       text-align: center;
+      margin-bottom: 30px;
     }
     .hero h1 {
-      font-size: 2.5rem;
+      font-size: 3rem;
       font-weight: bold;
+      margin-bottom: 15px;
     }
-
-    .section-title {
-      color: #007bff;
-      font-weight: 700;
-      font-size: 2rem;
-      text-align: center;
-      margin-top: 30px;
-      margin-bottom: 20px;
-    }
-
-    .section-content {
-      text-align: center;
-      font-size: 1.1rem;
+    .hero p {
+      font-size: 1.3rem;
+      max-width: 700px;
+      margin: 0 auto;
       line-height: 1.8;
     }
 
-    .info-card {
-      background-color: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    /* Section Container */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
       padding: 20px;
-      margin-bottom: 20px;
-      text-align: center;
+    }
+
+    /* Info Card Styling */
+    .info-card {
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      padding: 30px;
+      margin-bottom: 40px;
       transition: transform 0.3s ease;
+      text-align: center;
     }
     .info-card:hover {
       transform: translateY(-5px);
     }
-    .info-card h3 {
+    .info-card h2 {
       color: #007bff;
-      font-weight: 600;
-      font-size: 1.4rem;
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+    .info-card img {
+      width: 100%;
+      max-height: 250px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    .info-card p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #555;
+      margin-bottom: 0;
     }
 
+    /* Footer Styling */
     footer {
       background-color: #343a40;
       color: white;
       text-align: center;
-      padding: 15px;
+      padding: 20px;
       margin-top: 40px;
+      font-size: 0.9rem;
     }
     footer a {
       color: #007bff;
       text-decoration: none;
+      margin-left: 10px;
     }
     footer a:hover {
       text-decoration: underline;
     }
+
   </style>
 </head>
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg">
-  <a class="navbar-brand" href="index.html">Giving Circle</a>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-      <li class="nav-item active"><a class="nav-link" href="about.html">About Us</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">Projects</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
-    </ul>
-  </div>
+<nav>
+  <a href="index.html" class="logo">Giving Grace</a>
+  <a href="index.html">Home</a>
+  <a href="stories.html">Stories</a>
+  <a href="login.html">Log In</a>
+  <a href="legal.html">Legal</a>
+  <a href="contact.html">Contact Us</a>
+  <a href="about.html">About Us</a>
 </nav>
 
 <!-- Hero Section -->
 <div class="hero">
-  <h1>About Our Charity</h1>
-  <p>Creating a better future through compassion and action.</p>
+  <h1>About Giving Grace</h1>
+  <p>
+    Empowering communities through compassion, education, and opportunity.  
+    We're committed to making a real difference in the lives of those who need it most.
+  </p>
 </div>
 
-<!-- About Us Section -->
-<div class="container mt-5">
-  <h2 class="section-title">Our Origin</h2>
-  <p class="section-content">
-    Founded in <strong>2010</strong>, Giving Circle began with a small food drive in a local town, where our founders 
-    recognized a growing need for social support. Inspired by the community's response, our organization was created 
-    with a mission to provide resources and support to those in need.
-  </p>
+<!-- Page Content -->
+<div class="container">
 
-  <h2 class="section-title">Our Mission</h2>
-  <p class="section-content">
-    <em>"To empower communities by providing education, healthcare, and support to enable positive change."</em>  
-    We believe in building stronger communities through compassion, education, and opportunity.
-  </p>
-
-  <h2 class="section-title">Our Impact</h2>
-  <div class="row">
-    <div class="col-md-4">
-      <div class="info-card">
-        <h3>🏫 Education</h3>
-        <p>We've built over <strong>50 schools</strong> in underserved regions, giving thousands of children access to quality education.</p>
-      </div>
-    </div>
-
-    <div class="col-md-4">
-      <div class="info-card">
-        <h3>🏥 Healthcare</h3>
-        <p>Our healthcare programs have provided medical aid and treatment to over <strong>20,000 patients</strong> worldwide.</p>
-      </div>
-    </div>
-
-    <div class="col-md-4">
-      <div class="info-card">
-        <h3>🌍 Disaster Relief</h3>
-        <p>In 2015, we led emergency relief efforts during a devastating flood, helping over <strong>5,000 families</strong> recover.</p>
-      </div>
-    </div>
+  <!-- Origin Section -->
+  <div class="info-card">
+    <img src="https://source.unsplash.com/800x400/?community,help" alt="Our Origin">
+    <h2>Our Origin</h2>
+    <p>
+      Founded in <strong>2010</strong>, Giving Grace began with a mission to provide relief to underserved communities.  
+      What started as a small grassroots movement has grown into a global organization supporting thousands of individuals each year.  
+      <br><br>
+      Inspired by the strength and resilience of the communities we serve, our mission has evolved to focus on sustainable development, education, and healthcare.
+    </p>
   </div>
+
+  <!-- Mission Section -->
+  <div class="info-card">
+    <img src="https://source.unsplash.com/800x400/?education,hope" alt="Our Mission">
+    <h2>Our Mission</h2>
+    <p>
+      Our mission is to empower communities by providing access to education, healthcare, and opportunities for self-reliance.  
+      <br><br>
+      We believe that everyone deserves the chance to succeed, and we work closely with local leaders and organizations to create tailored programs that address the specific needs of each community.
+    </p>
+  </div>
+
+  <!-- Impact Section -->
+  <div class="info-card">
+    <img src="https://source.unsplash.com/800x400/?teamwork,impact" alt="Our Impact">
+    <h2>Our Impact</h2>
+    <p>
+      Since our founding, Giving Grace has:
+      <ul style="text-align: left; display: inline-block;">
+        <li>🏫 Built over <strong>75 schools</strong> in underserved communities.</li>
+        <li>🏥 Provided medical aid to over <strong>30,000 patients</strong> worldwide.</li>
+        <li>🌍 Supported over <strong>8,000 families</strong> affected by natural disasters.</li>
+        <li>💡 Empowered <strong>5,000 women</strong> through entrepreneurship and training programs.</li>
+      </ul>
+      Our work is made possible by the generosity of our donors and the dedication of our volunteers.
+    </p>
+  </div>
+
 </div>
 
 <!-- Footer -->
 <footer>
-  © 2025 Giving Circle. All rights reserved. | 
+  © 2025 Giving Grace. All rights reserved. | 
   <a href="#">Privacy Policy</a> | 
   <a href="#">Terms of Service</a>
 </footer>
