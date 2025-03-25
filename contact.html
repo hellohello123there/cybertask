@@ -5,21 +5,93 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Us</title>
   <style>
+    /* Basic Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f8f9fa;
-      color: #343a40;
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      background-color: #e6f7ff; /* Very light blue background */
+      color: #333;
     }
 
-    /* Navbar Styling */
+    header {
+      background-image: url('https://www.armstrongwatson.co.uk/sites/armstrongwatson.co.uk/files/styles/blog/adaptive-image/public/news-images/2023/charitable_giving.jpg?itok=xGPfBJMW');
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      padding: 60px 0;
+      text-align: center;
+      animation: fadeIn 2s ease-in-out;
+      position: relative;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5); /* Dark overlay for better text visibility */
+    }
+
+    header h1, header p {
+      position: relative;
+      z-index: 1;
+    }
+
+    header h1 {
+      margin-bottom: 10px;
+      font-size: 2.5rem;
+      animation: slideIn 1.5s ease-in-out;
+    }
+
+    /* Navbar Styling - Removed fixed positioning */
     .navbar {
-      background-color: #007bff !important;
+      background-color: #008cff;
+      padding: 20px 40px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
     }
-    .navbar-brand, .nav-link {
-      color: #fff !important;
+
+    .navbar-brand {
+      color: #ffffff !important;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      text-decoration: none;
+      margin-right: auto;
     }
+
+    .navbar-nav {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: 20px;
+    }
+
+    .nav-item {
+      margin: 0;
+    }
+
+    .nav-link {
+      color: #ffffff !important;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
     .nav-link:hover {
-      color: #cce5ff !important;
+      color: #ccfff4 !important;
     }
 
     /* Hero Section */
@@ -46,7 +118,6 @@
 
     /* Form Styling */
     .contact-form {
-  
       max-width: 600px;
       margin: 0 auto;
       padding: 20px;
@@ -93,15 +164,31 @@
       padding: 15px 0;
       margin-top: 30px;
     }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Navbar -->
+  <!-- Header Section -->
+  <header>
+    <h1>The Giving Circle</h1>
+    <p>We'd love to hear from you!</p>
+  </header>
+
+  <!-- Navbar - Now appears below header -->
   <nav class="navbar">
     <div class="container">
-      <a class="navbar-brand" href="#">My Company</a>
-      <ul class="nav">
+      <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" href="#">Home</a>
         </li>
@@ -110,9 +197,9 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Contact</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="#">Log in</a>
-
-          
         </li>
       </ul>
     </div>
@@ -120,8 +207,7 @@
 
   <!-- Hero Section -->
   <section class="hero">
-    <h1>Contact Us</h1>
-    <p>We'd love to hear from you! Fill out the form below, and we'll get back to you as soon as possible.</p>
+    <p>Fill out the form below, and we'll get back to you as soon as possible.</p>
   </section>
 
   <!-- Contact Form -->
