@@ -1,30 +1,130 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<ad>!DOCTYPE html>
+  <html lang="en">
+  <he
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Us</title>
   <style>
+    /* Basic Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f8f9fa;
-      color: #343a40;
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      background-color: #e6f7ff;
+      color: #333;
+    }
+
+    /* Popup Styling */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #4CAF50;
+      color: white;
+      padding: 20px 40px;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      z-index: 1001;
+      text-align: center;
+      animation: fadeIn 0.3s;
+    }
+    
+    .popup-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+    }
+
+    header {
+      background-image: url('https://www.armstrongwatson.co.uk/sites/armstrongwatson.co.uk/files/styles/blog/adaptive-image/public/news-images/2023/charitable_giving.jpg?itok=xGPfBJMW');
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      padding: 60px 0;
+      text-align: center;
+      animation: fadeIn 2s ease-in-out;
+      position: relative;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    header h1, header p {
+      position: relative;
+      z-index: 1;
+    }
+
+    header h1 {
+      margin-bottom: 10px;
+      font-size: 2.5rem;
+      animation: slideIn 1.5s ease-in-out;
     }
 
     /* Navbar Styling */
     .navbar {
-      background-color: #007bff !important;
+      background-color: #008cff;
+      padding: 20px 40px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
     }
-    .navbar-brand, .nav-link {
-      color: #fff !important;
+
+    .navbar-brand {
+      color: #ffffff !important;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      text-decoration: none;
+      margin-right: auto;
     }
+
+    .navbar-nav {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: 20px;
+    }
+
+    .nav-item {
+      margin: 0;
+    }
+
+    .nav-link {
+      color: #ffffff !important;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
     .nav-link:hover {
-      color: #cce5ff !important;
+      color: #ccfff4 !important;
     }
 
     /* Hero Section */
     .hero {
-      background-image: url('https://www.armstrongwatson.co.uk/sites/armstrongwatson.co.uk/files/styles/blog/adaptive-image/public/news-images/2023/charitable_giving.jpg?itok=xGPfBJMW');
+      background-image: url('https://ci3.googleusercontent.com/mail-img-att/AGAZnRp-zCKvT58_KdzdiUpP04IvgAeB9-SmEM9uDot68BWf6Cf_fhXlEWoCoak6U9YIjcYeOLvnLeNfAqdWApFhsoAos-2907GCpJbZo0cqmCBBc4HaC4XgsGYLmmn70-I67lpRDlsQIrFVtgcjFtnO1ps0R6NYZseipUOsZwyY5sTOsfldncoHAhqf1bz_eMI_vEssFS3e5frPCIv_kylXFxe3MF9wE7DDPgFPADiCPVT--KCisaIDaCSGMlr3eR92nQSXHXUTUXo6Gbu4L7RkQHU4lPCNORC6tDPsfwGH5yMk2Y0fIRk4HIEVgvMZq8FRUVSgiA2nBBQgX5YBPNoB9-NsLTQKNVKeUtcZ4KQdCzblBLalvT4ZXEn_JelDxDR-YRCb2U7DkL36vwPPOAIfhfCBDZMV0R5DzCWfoSmf3LGYZQq244uA5kHBlIT2CTWfHOtws7Qikhgh3dHPKPnt0nU9qfwTwGmTmiRwMQ0b6ob2O9O2ivD_zgJhhrUQ1avQxG9anspsWoSmzj9TWHnzwVxYt6TNC2OBFPIbnezvG_leaLICtT50WxTr9pMsjQ0zVSDyuCUeiNpavjJJTusqktcTqrCOdpWZmFTpS2f7w9s57UMv6sRQSw18IwRyB_P0VgRkamT7JFYYGcUnsbwoIeNgsLxPSTr9MN79ayVWp3npGMPRAUmHzwiWilScYmp7HaD0bzvuqyK-8OE08OHf17mdmS0KLInSbn7bYNF0ryvuC-cFjXWWOqZvviSNamw73ArTY75Fj5zU1q3U91nBA1mPAs4UJxmY30uq_JXLV5ldctR9w2Pv6y8i_6Hzb497Ia-83hXYzrBQJpr8qFNPTX9WTUl6SQAvWMZCqHnMrnCxw8hMn-yNJkLhppGzafJa_VSM2d-tzk766OBSBbt0nm3Vy6H5BrLIfgMmlZ984Zh2GasoMnJ7V_hoG4k0u_KYcI1tK9iRkCPjv7d-DHQsRKGjOLywsL9YMxUWwmBJ218MK5amekNZUWRT2o1P6bZj4tFBvWqoHXPTTtRmYtZTDjj6=s0-l75-ft');
       background-color: #007bff;
       color: white;
       padding: 60px 20px;
@@ -36,6 +136,8 @@
     }
     .hero p {
       font-size: 1.25rem;
+      color: white; /* Changed to white */
+      font-weight: bold; /* Kept bold */
     }
 
     /* Content Section */
@@ -46,7 +148,6 @@
 
     /* Form Styling */
     .contact-form {
-  
       max-width: 600px;
       margin: 0 auto;
       padding: 20px;
@@ -93,42 +194,61 @@
       padding: 15px 0;
       margin-top: 30px;
     }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
   </style>
 </head>
 <body>
 
+  <!-- Header Section -->
+  <header>
+    <h1>The Giving Circle</h1>
+    <p>We'd love to hear from you!</p>
+  </header>
+
   <!-- Navbar -->
   <nav class="navbar">
     <div class="container">
-      <a class="navbar-brand" href="#">My Company</a>
-      <ul class="nav">
+      <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="#">Home</a>
+          <a class="nav-link" href="http://192.168.11.164/index.html">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
+          <a class="nav-link" href="http://192.168.11.164/stories.html"">Stories</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Contact</a>
-          <a class="nav-link" href="#">Log in</a>
-
-          
+          <a class="nav-link" href="http://192.168.11.164/legal.html">Legal</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://192.168.11.164/contact.html">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://192.168.11.164/login.html">Log in</a>
+        </li>
+        <a class="nav-link" href="http://192.168.11.164/about.html">About Us</a>
+  </li>
       </ul>
     </div>
   </nav>
-
   <!-- Hero Section -->
   <section class="hero">
-    <h1>Contact Us</h1>
-    <p>We'd love to hear from you! Fill out the form below, and we'll get back to you as soon as possible.</p>
+    <p>Fill out the form below, and we'll get back to you as soon as possible.</p>
   </section>
 
   <!-- Contact Form -->
   <div class="container">
     <div class="contact-form">
       <h2>Get in Touch</h2>
-      <form action="#" method="POST">
+      <form id="contactForm" action="#" method="POST">
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required>
 
@@ -146,10 +266,35 @@
     </div>
   </div>
 
+  <!-- Popup -->
+  <div class="popup-overlay" id="popupOverlay"></div>
+  <div class="popup" id="popup">
+    <p>Submission Received!</p>
+  </div>
+
   <!-- Footer -->
   <footer>
     <p>&copy; 2025 The Giving Circle. All rights reserved.</p>
   </footer>
+
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault(); // Prevent actual form submission for this demo
+      
+      // Show popup and overlay
+      document.getElementById('popup').style.display = 'block';
+      document.getElementById('popupOverlay').style.display = 'block';
+      
+      // Hide popup after 3 seconds
+      setTimeout(function() {
+        document.getElementById('popup').style.display = 'none';
+        document.getElementById('popupOverlay').style.display = 'none';
+        
+        // Optional: Reset the form
+        document.getElementById('contactForm').reset();
+      }, 3000);
+    });
+  </script>
 
 </body>
 </html>
