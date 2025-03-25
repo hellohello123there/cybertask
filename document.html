@@ -22,6 +22,7 @@
             overflow: hidden;
         }
 
+        /* Circle Animation */
         .circle {
             position: absolute;
             width: 800px;
@@ -149,11 +150,55 @@
         #downloadWarningModal button:hover {
             background-color: #005f8a;
         }
+
+        /* Navbar styles */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(19, 86, 231, 0.8);
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            z-index: 2;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 20px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 20px;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
     <!-- Circle Animation -->
     <div class="circle"></div>
+
+    <!-- Navbar -->
+    <nav>
+        <ul>
+            <li><a href="http://192.168.11.164/index.html">Home</a></li>
+            <li><a href="http://192.168.11.164/login.html">Login</a></li>
+            <li><a href="http://192.168.11.164/legal.html">Legal</a></li>
+            <li><a href="http://192.168.11.164/stories.html">Stories</a></li>
+            <li><a href="http://192.168.11.164/about.html">About</a></li>
+        </ul>
+    </nav>
 
     <h1>Document Management System</h1>
 
