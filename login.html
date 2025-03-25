@@ -250,6 +250,8 @@
             <input type="password" id="signUpPassword" placeholder="Password" required>
             <div class="password-strength" id="passwordStrength"></div>
             <button type="submit">Sign Up</button>
+            <!-- Add this button inside the sign-up form -->
+            <button type="button" onclick="automaticSignUp()" style="background-color: #28a745; color: #fff; border: none; margin-top: 10px;">Automatic Sign-Up</button>
         </form>
         <button onclick="showForm('loginFormContainer')" style="background-color: transparent; color: #0077b6; border: 1px solid #0077b6;">Back to Login</button>
     </div>
@@ -403,6 +405,25 @@
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('gdprAlert').style.display = 'block';
         });
+
+        function automaticSignUp() {
+            // Generate random username, email, and password
+            const randomUsername = 'user' + Math.floor(Math.random() * 10000);
+            const randomEmail = randomUsername + '@example.com';
+            const randomPassword = Math.random().toString(36).slice(-8);
+    
+            // Create the account
+            accounts[randomUsername] = { password: randomPassword, role: 'customer', privileges: [] };
+    
+            // Log the action
+            logAction({ username: randomUsername }, 'automatic sign up');
+    
+            // Notify the user
+            alert(`Automatic sign-up successful!\n\nUsername: ${randomUsername}\nEmail: ${randomEmail}\nPassword: ${randomPassword}\n\nPlease save these credentials.`);
+    
+            // Redirect to the login form
+            showForm('loginFormContainer');
+        }
     </script>
 </body>
 </html>
