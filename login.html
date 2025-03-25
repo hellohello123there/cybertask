@@ -306,6 +306,9 @@
             const password = document.getElementById('password').value;
     
             if (accounts[username] && accounts[username].password === password) {
+                // Save login state in localStorage
+                localStorage.setItem('currentUser', JSON.stringify({ username, role: accounts[username].role }));
+
                 alert('Login successful for ' + username);
                 failedAttempts = 0; // Reset failed attempts
                 logAction({ username, ...accounts[username] }, 'login');

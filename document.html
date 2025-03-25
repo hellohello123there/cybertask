@@ -5,69 +5,167 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document Management System</title>
     <style>
+        /* Consistent styles from login.html */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-        }
-        h1 {
+            font-family: 'Arial', sans-serif;
+            background-color: #183b9b38;
+            color: #fff;
             text-align: center;
-            color: #0077b6;
+            padding: 50px;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
         }
-        form {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-            margin: 0 auto;
+
+        .circle {
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            border: 10px solid #0051ff;
+            border-radius: 50%;
+            animation: rotate 10s linear infinite, fadeIn 2s ease-in-out;
+            z-index: 1;
+            opacity: 0.5;
+            top: 33%;
+            left: 39.5%;
+            transform: translate(-50%, -50%);
         }
-        input, button {
-            width: 100%;
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 40px;
+            background: linear-gradient(90deg, #252424, #1044f1);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            z-index: 2;
+        }
+
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+            width: 400px;
+            margin-top: 20px;
+            animation: fadeInScale 1s ease-in-out;
+            color: #333;
+            z-index: 2;
+        }
+
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .form-container input, .form-container button {
+            width: 90%;
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ccc;
-            border-radius: 4px;
+            border-radius: 5px;
+            background-color: #fff;
+            color: #333;
         }
-        button {
+
+        .form-container button {
             background-color: #0077b6;
             color: #fff;
             border: none;
+            border-radius: 5px;
+            font-size: 16px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
-        button:hover {
+
+        .form-container button:hover {
             background-color: #005f8a;
         }
+
         #actions {
             display: none;
-            text-align: center;
             margin-top: 20px;
         }
+
+        #actions button {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: #0077b6;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #actions button:hover {
+            background-color: #005f8a;
+        }
+
         #downloadWarningModal {
             display: none;
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: #fff;
+            background: rgba(255, 255, 255, 0.9);
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
             z-index: 1000;
+            color: #333;
+        }
+
+        #downloadWarningModal button {
+            background-color: #0077b6;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        #downloadWarningModal button:hover {
+            background-color: #005f8a;
         }
     </style>
 </head>
 <body>
-    <h1>Document Management System</h1>
-    <form id="loginForm">
-        <input type="text" id="username" placeholder="Username" required>
-        <input type="password" id="password" placeholder="Password" required>
-        <button type="submit">Login</button>
-    </form>
+    <!-- Circle Animation -->
+    <div class="circle"></div>
 
-    <div id="actions">
+    <h1>Document Management System</h1>
+
+    <div class="form-container" id="loginFormContainer">
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <div class="form-container" id="actions">
         <button onclick="createDocument()">Create Document</button>
         <button onclick="editDocument()">Edit Document</button>
         <button onclick="deleteDocument()">Delete Document</button>
@@ -205,6 +303,22 @@
                 alert('You do not have permission to revoke privileges.');
             }
         }
+    </script>
+
+    <script>
+        // Check if the user is logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+            if (!currentUser) {
+                // Redirect to login page if not logged in
+                alert('You must log in to access this page.');
+                window.location.href = 'login.html';
+            } else {
+                // Display a welcome message or user-specific content
+                alert(`Welcome, ${currentUser.username}!`);
+            }
+        });
     </script>
 </body>
 </html>
